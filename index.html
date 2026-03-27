@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praise Adesina | Portfolio</title>
+  <meta name="description" content="Portfolio of Praise Adesina, Computer Science student at Covenant University. Projects, skills, contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ------------------ CSS RESET ------------------ */
+    *,*::before,*::after{box-sizing:border-box}
+    *{margin:0;padding:0}
+    html:focus-within{scroll-behavior:smooth}
+    html,body{height:100%}
+    img,picture,svg,video,canvas{display:block;max-width:100%}
+    input,button,textarea,select{font:inherit}
+
+    /* ------------------ THEME ------------------ */
+    :root{
+      --bg: #0b1020;
+      --bg-elev: #0f162d;
+      --panel: #121a36;
+      --txt: #e6eaf6;
+      --muted: #b0b8d0;
+      --primary: #6ea8fe;
+      --primary-2: #7c3aed;
+      --accent: #22d3ee;
+      --card: #0f162d;
+      --border: #203059;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      color-scheme: dark;
+    }
+    :root.light{
+      --bg: #ffffff;
+      --bg-elev: #f6f8ff;
+      --panel: #f3f4f8;
+      --txt: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --primary-2: #7c3aed;
+      --accent: #06b6d4;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(2,6,23,.08);
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: light){:root{--bg:#ffffff;--bg-elev:#f6f8ff;--panel:#f3f4f8;--txt:#0f172a;--muted:#475569;--primary:#2563eb;--accent:#06b6d4;--card:#ffffff;--border:#e5e7eb;--shadow:0 10px 30px rgba(2,6,23,.08)}}
+
+    body{
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(124,58,237,.18), transparent 50%),
+                  radial-gradient(1000px 700px at 80% 0%, rgba(37,99,235,.18), transparent 50%),
+                  var(--bg);
+      color: var(--txt);
+      line-height: 1.65;
+      overflow-x:hidden;
+    }
+
+    /* ------------------ UTIL ------------------ */
+    .container{max-width:1100px;margin-inline:auto;padding:0 1.25rem}
+    .section{padding:6rem 0}
+    .tag{display:inline-flex;align-items:center;gap:.5rem;padding:.25rem .6rem;border-radius:999px;background:linear-gradient(135deg,var(--panel),transparent);border:1px solid var(--border);color:var(--muted);font-size:.85rem}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.2rem;border-radius:.8rem;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:white;text-decoration:none;font-weight:700;box-shadow:var(--shadow);transform:translateZ(0);transition:filter .2s, transform .2s}
+    .btn:hover{filter:brightness(1.08);transform:translateY(-2px)}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--txt)}
+
+    /* ------------------ NAV ------------------ */
+    .navbar{position:sticky;top:0;z-index:50;background:rgba(10,14,30,.55);backdrop-filter: blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .navwrap{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
+    .logo{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.3px}
+    .logo .dot{width:.65rem;height:.65rem;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--primary))}
+    .navlinks{display:flex;gap:1rem}
+    .navlinks a{padding:.55rem .8rem;border-radius:.65rem;color:var(--muted);text-decoration:none;transition:background .2s,color .2s}
+    .navlinks a:hover{background:rgba(255,255,255,.06);color:var(--txt)}
+    .toggle{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--border);border-radius:.7rem;padding:.45rem .65rem;background:var(--panel);cursor:pointer}
+
+    /* ------------------ HERO ------------------ */
+    .hero{position:relative;isolation:isolate}
+    .hero .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center}
+    .headline{font-size:clamp(2.1rem,4.8vw,3.75rem);line-height:1.05;font-weight:800;letter-spacing:-.02em}
+    .sub{color:var(--muted);font-size:1.05rem;margin-top:1rem}
+    .cta{display:flex;gap:1rem;margin-top:1.6rem;flex-wrap:wrap}
+    .hero-card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:1.2rem;padding:1rem;overflow:hidden;box-shadow:var(--shadow)}
+    .hero-card img{border-radius:1rem}
+
+    /* Animated blob */
+    .blob{position:absolute;inset:auto -10% -30% auto;width:480px;height:480px;background:radial-gradient(circle at 30% 30%, rgba(34,211,238,.8), transparent 55%), radial-gradient(circle at 70% 60%, rgba(124,58,237,.7), transparent 60%);filter:blur(35px);opacity:.7;border-radius:50%;animation:blob 18s infinite ease-in-out;z-index:-1}
+    @keyframes blob{0%{transform:translate(0,0) scale(1)}33%{transform:translate(5%, -4%) scale(1.08)}66%{transform:translate(-6%, 6%) scale(.96)}100%{transform:translate(0,0) scale(1)}}
+
+    /* ------------------ ABOUT ------------------ */
+    .about-card{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:1.2rem;padding:1.25rem}
+    .about-card .stat{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent);padding:1rem;border-radius:.9rem}
+    .mono{font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;color:var(--accent);font-size:.95rem}
+
+    /* ------------------ GRID / CARDS ------------------ */
+    .grid{display:grid;gap:1.5rem}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width: 900px){.hero .grid{grid-template-columns:1fr}.about-card{grid-template-columns:1fr}.grid.cols-3{grid-template-columns:1fr 1fr}.grid.cols-2{grid-template-columns:1fr}}
+    @media (max-width: 640px){.grid.cols-3{grid-template-columns:1fr}}
+
+    .card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:1rem;overflow:hidden;transition:transform .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+    .card .cover{aspect-ratio:16/9;object-fit:cover}
+    .card .body{padding:1rem 1rem 1.2rem}
+    .card h3{font-size:1.05rem;margin-bottom:.4rem}
+    .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+    .chip{font-size:.8rem;padding:.25rem .5rem;border-radius:.5rem;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted)}
+
+    /* ------------------ SKILLS ------------------ */
+    .skills{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem}
+    @media (max-width:900px){.skills{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:600px){.skills{grid-template-columns:repeat(2,1fr)}}
+    .skill{background:var(--card);border:1px solid var(--border);padding:1rem;border-radius:.9rem}
+    .skill .bar{height:10px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;margin-top:.7rem}
+    .skill .bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+
+    /* ------------------ GALLERY ------------------ */
+    .gallery{columns:3 260px;column-gap:1rem}
+    .gallery figure{break-inside:avoid;overflow:hidden;border-radius:.8rem;border:1px solid var(--border);margin:0 0 1rem;background:var(--card)}
+    .gallery img{width:100%;height:auto;display:block;transition:transform .3s ease}
+    .gallery img:hover{transform:scale(1.04)}
+    .gallery figcaption{padding:.6rem .75rem;color:var(--muted);font-size:.9rem}
+
+    /* ------------------ CONTACT ------------------ */
+    .contact{display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem}
+    @media (max-width:900px){.contact{grid-template-columns:1fr}}
+    .form{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1rem;display:grid;gap:.8rem}
+    .form input,.form textarea{width:100%;padding:.8rem .9rem;border:1px solid var(--border);border-radius:.7rem;background:var(--panel);color:var(--txt)}
+    .form textarea{min-height:120px;resize:vertical}
+
+    /* ------------------ FOOTER ------------------ */
+    footer{border-top:1px solid var(--border);background:linear-gradient(180deg,transparent,rgba(255,255,255,.03));padding:2rem 0 3rem;color:var(--muted)}
+    .social{display:flex;gap:.8rem}
+    .social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--card);text-decoration:none}
+
+    /* ------------------ REVEAL ANIMATIONS ------------------ */
+    .reveal{opacity:0;transform:translateY(18px);filter:saturate(.8)}
+    .reveal.in{opacity:1;transform:none;filter:none;transition:all .9s cubic-bezier(.22,1,.36,1)}
+    .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .blob{display:none}
+      .reveal{opacity:1;transform:none}
+      .skill .bar > span{transition:none}
+      .btn{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navwrap">
+      <a class="logo" href="#" aria-label="Home">
+        <span class="dot"></span>
+        <span>Praise Adesina</span>
+      </a>
+      <nav class="navlinks">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="themeToggle" class="toggle" aria-label="Toggle theme">🌓 <span style="font-size:.9rem">Theme</span></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero section">
+    <div class="container grid">
+      <div>
+        <span class="tag reveal">Computer Science @ Covenant University</span>
+        <h1 class="headline reveal delay-2">Praise Adesina, Adewale</h1>
+        <p class="sub reveal delay-3">Aspiring Tech Mogul • Developer & Innovator • Writer & Teacher. I build clean, scalable experiences for the web.</p>
+        <div class="cta reveal delay-4">
+          <a href="#projects" class="btn">View My Work</a>
+          <a href="#contact" class="btn ghost">Hire Me</a>
+        </div>
+      </div>
+      <div class="hero-card reveal delay-2">
+        <img src="./images/IMG_20250811_154847_482.jpg" alt="Developer workspace with code on screen" class="cover"/>
+      </div>
+    </div>
+    <div class="blob" aria-hidden="true"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="reveal" style="text-align:center;margin-bottom:1.2rem">About Me</h2>
+      <div class="about-card reveal">
+        <div>
+          <p>I'm a passionate innovator studying Computer Science at Covenant University. I design and build delightful, performant interfaces—focused on clarity, accessibility, and impact. My goal is to create products that scale and truly help people.</p>
+          <p style="margin-top:1rem">Beyond code, I teach and write. I love turning complex ideas into simple, beautiful experiences.</p>
+          <div class="chips" style="margin-top:1rem">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">React</span>
+            <span class="chip">Next.js</span>
+            <span class="chip">Node.js</span>
+          </div>
+        </div>
+        <div>
+          <div class="stat">
+            <span class="mono">• 10+ Projects</span>
+            <strong>Hands-on with modern stacks</strong>
+          </div>
+          <div class="stat">
+            <span class="mono">• Teaching & Writing</span>
+            <strong>Explaining hard things simply</strong>
+          </div>
+          <div class="stat">
+            <span class="mono">• Interests</span>
+            <strong>Front‑end, DX, EdTech, Revival Teaching</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="reveal" style="text-align:center;margin-bottom:1.2rem">Projects</h2>
+      <div class="grid cols-3">
+        <article class="card reveal">
+          <img class="cover" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop" alt="Portfolio website preview"/>
+          <div class="body">
+            <h3>Portfolio Website</h3>
+            <p>A responsive personal portfolio built with Next.js and Tailwind CSS.</p>
+            <div class="chips"><span class="chip">Next.js</span><span class="chip">Tailwind</span><span class="chip">Vercel</span></div>
+            <div style="margin-top:.9rem;display:flex;gap:.6rem">
+              <a href="https://adesinapraise.netlify.app" target="_blank" rel="noreferrer" class="btn" style="padding:.6rem .9rem;font-weight:700">Live</a>
+              <a href="#" class="btn ghost" style="padding:.6rem .9rem">Code</a>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal delay-1">
+          <img class="cover" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1600&auto=format&fit=crop" alt="Blog platform"/>
+          <div class="body">
+            <h3>Blog Platform</h3>
+            <p>A clean blog for information dissemination and tech updates.</p>
+            <div class="chips"><span class="chip">Next.js</span><span class="chip">MDX</span><span class="chip">Prism</span></div>
+            <div style="margin-top:.9rem;display:flex;gap:.6rem">
+              <a href="#" class="btn" style="padding:.6rem .9rem">Live</a>
+              <a href="#" class="btn ghost" style="padding:.6rem .9rem">Code</a>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal delay-2">
+          <img class="cover" src="https://media.istockphoto.com/id/463216215/photo/bible-study.webp?a=1&b=1&s=612x612&w=0&k=20&c=CnJI7kZ7HOhqzZxRxtXb1ZgmHQQjAacjIDWVf3y4eGk=" alt="Teaching resources"/>
+          <div class="body">
+            <h3>Teaching</h3>
+            <p>Teaching the scriptures is my passion.</p>
+            <div class="chips"><span class="chip">Curriculum</span><span class="chip">Design</span><span class="chip">Community</span></div>
+            <div style="margin-top:.9rem;display:flex;gap:.6rem">
+              <a href="#" class="btn" style="padding:.6rem .9rem">Preview</a>
+              <a href="#" class="btn ghost" style="padding:.6rem .9rem">Docs</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="reveal" style="text-align:center;margin-bottom:1.2rem">Skills</h2>
+      <div class="skills">
+        <div class="skill reveal"><strong>HTML</strong><div class="bar"><span data-val="95"></span></div></div>
+        <div class="skill reveal delay-1"><strong>CSS</strong><div class="bar"><span data-val="90"></span></div></div>
+        <div class="skill reveal delay-2"><strong>JavaScript</strong><div class="bar"><span data-val="85"></span></div></div>
+        <div class="skill reveal delay-3"><strong>React</strong><div class="bar"><span data-val="80"></span></div></div>
+        <div class="skill reveal delay-4"><strong>Next.js</strong><div class="bar"><span data-val="78"></span></div></div>
+        <div class="skill reveal"><strong>Node.js</strong><div class="bar"><span data-val="70"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY / PICTURES -->
+  <section id="gallery" class="section">
+    <div class="container">
+      <h2 class="reveal" style="text-align:center;margin-bottom:1.2rem">Photo Gallery</h2>
+      <p class="reveal" style="text-align:center;color:var(--muted);margin-bottom:1.2rem">Snippets from projects, speaking, and everyday inspiration.</p>
+      <div class="gallery">
+        <figure class="reveal"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Coding session"><figcaption>Coding session</figcaption></figure>
+        <figure class="reveal"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Teamwork"><figcaption>Teamwork</figcaption></figure>
+        <figure class="reveal"><img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop" alt="Terminal"><figcaption>Terminal life</figcaption></figure>
+        <figure class="reveal"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dGVhY2hpbmd8ZW58MHx8MHx8fDA%3D" alt="Teaching"><figcaption>Teaching & Learning</figcaption></figure>
+        <figure class="reveal"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" alt="Devices"><figcaption>Devices</figcaption></figure>
+        <figure class="reveal"><img src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=1200&auto=format&fit=crop" alt="Study"><figcaption>Study vibes</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="reveal" style="text-align:center;margin-bottom:1.2rem">Contact</h2>
+      <div class="contact">
+        <div class="form reveal">
+          <label>
+            <span>Name</span>
+            <input id="name" type="text" placeholder="Your name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input id="email" type="email" placeholder="you@example.com" />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea id="message" placeholder="Tell me about your project..."></textarea>
+          </label>
+          <button class="btn" id="sendBtn">Send Email</button>
+          <p id="status" class="mono" aria-live="polite"></p>
+        </div>
+        <div class="reveal">
+          <div class="about-card" style="grid-template-columns:1fr;">
+            <div class="stat">
+              <span class="mono">Email</span>
+              <a href="mailto:praiseadesin2@gmail.com" class="btn ghost" style="width:max-content">praiseadesina2@gmail.com</a>
+            </div>
+            <div class="stat">
+              <span class="mono">Socials</span>
+              <div class="social">
+                <a href="https://github.com/" target="_blank" aria-label="GitHub">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.11.8-.25.8-.57v-2c-3.26.71-3.95-1.4-3.95-1.4a3.1 3.1 0 0 0-1.3-1.71c-1.06-.73.08-.72.08-.72a2.46 2.46 0 0 1 1.8 1.21 2.5 2.5 0 0 0 3.43 1 2.49 2.49 0 0 1 .74-1.56c-2.6-.29-5.34-1.3-5.34-5.8a4.54 4.54 0 0 1 1.21-3.16 4.22 4.22 0 0 1 .11-3.12s.98-.31 3.2 1.2a11 11 0 0 1 5.82 0c2.22-1.51 3.19-1.2 3.19-1.2.44 1 .48 2.12.11 3.13a4.53 4.53 0 0 1 1.2 3.16c0 4.5-2.74 5.5-5.35 5.79a2.8 2.8 0 0 1 .8 2.17v3.21c0 .32.21.69.81.57A11.5 11.5 0 0 0 12 .5Z" fill="currentColor"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/praise-adesina-bb5905248" target="_blank" aria-label="LinkedIn">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.4c0-1.29-.02-2.94-1.79-2.94-1.8 0-2.07 1.4-2.07 2.84v5.5H9.49V9h3.41v1.56h.05c.48-.9 1.66-1.85 3.41-1.85 3.64 0 4.31 2.4 4.31 5.52v6.22ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z" fill="currentColor"/></svg>
+                </a>
+                <a href="https://x.com/praiseadesina" target="_blank" aria-label="X (Twitter)">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.245 3H21l-6.16 7.04L22 21h-6.4l-4.2-5.48L6.4 21H3l6.68-7.64L2 3h6.52l3.84 5.12L18.24 3Zm-1.12 16.2h1.76L8.94 4.7H7.06l10.064 14.5Z" fill="currentColor"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <p>© <span id="year"></span> Praise Adesina. All rights reserved.</p>
+      <a class="tag" href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // ------------------ THEME TOGGLE ------------------
+    const root = document.documentElement;
+    const storedTheme = localStorage.getItem('theme');
+    if(storedTheme === 'light') root.classList.add('light');
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      root.classList.toggle('light');
+      const isLight = root.classList.contains('light');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+
+    // ------------------ REVEAL ON SCROLL ------------------
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar > span')){
+            // animate skill bars when visible
+            e.target.querySelectorAll('.bar > span').forEach(span=>{
+              const val = span.getAttribute('data-val') || 80;
+              requestAnimationFrame(()=> span.style.width = val + '%');
+            });
+          }
+          io.unobserve(e.target);
+        }
+      })
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ------------------ CONTACT: MAILTO HELPER ------------------
+    const btn = document.getElementById('sendBtn');
+    const status = document.getElementById('status');
+    btn.addEventListener('click', ()=>{
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+      if(!name || !email || !msg){status.textContent='Please fill all fields.';return}
+      const subject = encodeURIComponent('Portfolio Contact from ' + name);
+      const body = encodeURIComponent(msg + '\n\nFrom: ' + name + ' <' + email + '>');
+      window.location.href = `mailto:praiseadesina2@gmail.com.com?subject=${subject}&body=${body}`;
+      status.textContent='Opening your email app…';
+    });
+
+    // ------------------ DYNAMIC YEAR ------------------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ------------------ TILTY CARDS ------------------
+    const tilty = (card)=>{
+      const rect = card.getBoundingClientRect();
+      card.addEventListener('mousemove', (e)=>{
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = (y/rect.height - .5) * -6;
+        const ry = (x/rect.width - .5) * 8;
+        card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      card.addEventListener('mouseleave', ()=>{
+        card.style.transform = 'translateY(-6px)';
+      })
+    }
+    document.querySelectorAll('.card').forEach(tilty);
+  </script>
+</body>
+</html>
